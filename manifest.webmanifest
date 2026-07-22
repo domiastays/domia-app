@@ -1,0 +1,16 @@
+{
+  "name": "Domia Stays — Guest Guide",
+  "short_name": "Domia Guide",
+  "description": "Check-in, WiFi, house manual and local tips for your Domia Stays home.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F2740",
+  "theme_color": "#0F2740",
+  "icons": [
+    { "src": "domia-icon.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "domia-icon.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "domia-icon-maskable.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

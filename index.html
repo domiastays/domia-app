@@ -1,0 +1,443 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guest Guide — Domia Stays</title>
+<meta name="description" content="Your digital guest guide: check-in, WiFi, house manual and local tips for your Domia Stays home on the Costa Blanca.">
+<meta property="og:title" content="Guest Guide — Domia Stays">
+<meta property="og:description" content="Everything you need for a five-star stay.">
+<meta property="og:type" content="website">
+
+<!-- ===== PWA (install to home screen, runs like an app) ===== -->
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#0F2740">
+<link rel="apple-touch-icon" href="domia-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Domia Guide">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --navy:#0F2740; --gold:#B08547; --gold-dark:#AD8040; --gold-light:#E1D1B9;
+  --cream:#FDEED3; --off-white:#F7F5F0; --ink:#1A2430;
+  --card:#ffffff; --line:#e7e2d7; --muted:#5c6672;
+  --grad:linear-gradient(135deg,#AD8040,#E1D1B9);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',system-ui,sans-serif;color:var(--ink);background:var(--off-white);
+  line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+h1,h2,h3{font-family:'Cormorant Garamond',Georgia,serif;line-height:1.12;font-weight:600}
+.wrap{max-width:560px;margin:0 auto;padding:0 18px}
+.ic{width:22px;height:22px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+/* top bar */
+.topbar{position:sticky;top:0;z-index:40;background:rgba(15,39,64,.96);backdrop-filter:blur(8px);
+  border-bottom:1px solid rgba(225,209,185,.18)}
+.topbar .wrap{display:flex;align-items:center;justify-content:space-between;height:58px}
+.brand{display:flex;align-items:center;gap:9px;color:#fff;text-decoration:none}
+.brand img{height:34px;width:auto;display:block}
+.brand .txt b{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:700;letter-spacing:.5px;line-height:1}
+.brand .txt span{display:block;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light)}
+.langbtn{display:flex;border:1px solid rgba(225,209,185,.35);border-radius:999px;overflow:hidden}
+.langbtn button{background:transparent;color:var(--gold-light);border:0;font:600 12px/1 'DM Sans';
+  padding:8px 12px;cursor:pointer;min-width:40px;letter-spacing:.5px}
+.langbtn button[aria-pressed="true"]{background:var(--grad);color:var(--navy)}
+
+/* hero */
+.hero{background:var(--navy);color:#fff;padding:24px 0 30px;text-align:center;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--grad)}
+.hero .photo{width:100%;height:190px;border-radius:16px;margin:0 0 20px;background:
+  linear-gradient(0deg,rgba(15,39,64,.55),rgba(15,39,64,.05)),
+  repeating-linear-gradient(45deg,#16324f 0 22px,#173856 22px 44px);
+  background-size:cover;background-position:center;display:flex;align-items:flex-end;
+  border:1px solid rgba(225,209,185,.25)}
+.photo .ph{margin:12px;font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--gold-light);opacity:.85}
+.eyebrow{font-size:12px;letter-spacing:3px;text-transform:uppercase;color:var(--gold-light);margin-bottom:8px}
+.hero h1{font-size:clamp(30px,8vw,42px);color:#fff;margin-bottom:6px}
+.hero .tag{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:19px}
+
+/* quick actions */
+.quick{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:-22px auto 8px;position:relative;z-index:5}
+.quick a{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 6px 11px;
+  text-align:center;text-decoration:none;color:var(--navy);box-shadow:0 8px 24px rgba(15,39,64,.10);transition:transform .12s}
+.quick a:active{transform:scale(.96)}
+.quick .ic{width:24px;height:24px;color:var(--gold-dark);margin:0 auto 6px;display:block}
+.quick small{font-size:11px;font-weight:600;letter-spacing:.2px}
+
+/* sections */
+section.blk{padding:22px 0 4px}
+.sechead{display:flex;align-items:center;gap:10px;margin:0 2px 14px}
+.sechead .n{flex:none;width:32px;height:32px;border-radius:9px;background:var(--grad);color:var(--navy);
+  display:grid;place-items:center}
+.sechead .n .ic{width:18px;height:18px;stroke-width:1.8}
+.sechead h2{font-size:26px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-bottom:12px;
+  box-shadow:0 2px 10px rgba(15,39,64,.04)}
+.card.topgold{border-top:3px solid var(--gold)}
+.row{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:11px 0;border-bottom:1px solid var(--line)}
+.row:last-child{border-bottom:0}
+.row .k{color:var(--muted);font-size:14px}
+.row .v{font-weight:600;text-align:right}
+.big{font-family:'Cormorant Garamond',serif;font-weight:700}
+
+/* copy chip */
+.copy{display:inline-flex;align-items:center;gap:8px;background:var(--off-white);border:1px dashed var(--gold);
+  border-radius:10px;padding:10px 12px;font-weight:700;letter-spacing:.5px;cursor:pointer;color:var(--ink);
+  font-size:15px;min-height:44px}
+.copy small{color:var(--gold-dark);font-weight:600;letter-spacing:.4px}
+.copy.done{border-style:solid;background:#f3efe4}
+
+/* steps */
+ol.steps{list-style:none}
+ol.steps li{counter-increment:s;position:relative;padding:0 0 14px 40px}
+ol.steps{counter-reset:s}
+ol.steps li:before{content:counter(s);position:absolute;left:0;top:-2px;width:26px;height:26px;border-radius:50%;
+  background:var(--navy);color:var(--gold-light);font:700 13px/26px 'DM Sans';text-align:center}
+ol.steps li b{display:block}
+ol.steps li:last-child{padding-bottom:0}
+
+/* rules / checkout */
+.rules{list-style:none}
+.rules li{padding:9px 0 9px 28px;position:relative;border-bottom:1px solid var(--line)}
+.rules li:before{content:"";position:absolute;left:2px;top:15px;width:8px;height:8px;border-radius:50%;background:var(--gold)}
+.rules li:last-child{border-bottom:0}
+
+/* explore */
+.place{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.place:last-child{border-bottom:0}
+.place .emo{flex:none;width:40px;height:40px;border-radius:50%;background:#f4efe3;display:grid;place-items:center;color:var(--gold-dark);margin-top:1px}
+.place .emo svg{width:21px;height:21px;stroke:currentColor;fill:none;stroke-width:1.55;stroke-linecap:round;stroke-linejoin:round}
+.place .body{flex:1}
+.place .body b{display:block}
+.place .body span{color:var(--muted);font-size:14px}
+.place .mins{flex:none;font-size:12px;color:var(--gold-dark);font-weight:700;white-space:nowrap}
+.pill{display:inline-flex;align-items:center;gap:7px;font-size:11px;font-weight:700;letter-spacing:.5px;
+  text-transform:uppercase;color:var(--gold-dark);background:#f4efe3;border-radius:999px;padding:4px 11px;margin-bottom:10px}
+.pill .ic{width:14px;height:14px;stroke-width:1.8}
+
+/* contact / emergency */
+.contact{background:var(--navy);color:#fff;border-radius:16px;padding:20px;margin-bottom:12px}
+.contact h3{color:#fff;font-size:22px;margin-bottom:4px}
+.contact p{color:#c9d2dc;font-size:14px;margin-bottom:8px}
+.btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;min-height:50px;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:15px;margin-top:10px}
+.btn .ic{width:20px;height:20px}
+.btn.gold{background:var(--grad);color:var(--navy)}
+.btn.ghost{background:transparent;color:var(--cream);border:1px solid rgba(225,209,185,.4)}
+.emergency{border:1px solid #e2c4c4;background:#fff;border-radius:14px;padding:6px 16px}
+.emergency .k b{color:#b02a2a}
+
+.note{font-size:12.5px;color:var(--muted);text-align:center;margin:6px 4px 0}
+
+/* footer (navy — the official logo is gold-on-navy and blends in) */
+footer{background:var(--navy);text-align:center;padding:8px 0 30px;margin-top:24px}
+footer img.wordmark{width:76%;max-width:300px;height:auto;margin:0 auto;display:block}
+footer .txtlogo{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:700;color:var(--gold-light);margin-top:24px}
+footer .tag{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;margin-top:2px}
+footer small{display:block;color:#8ea0b4;font-size:11.5px;margin-top:6px;line-height:1.7}
+
+/* sticky bar */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+  border-top:1px solid var(--line);padding:10px 14px calc(10px + env(safe-area-inset-bottom))}
+.sticky .wrap{display:flex;gap:10px}
+.sticky a{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border-radius:12px;
+  text-decoration:none;font-weight:700;font-size:15px}
+.sticky a .ic{width:19px;height:19px}
+.sticky .wa{background:#25D366;color:#04310f}
+.sticky .call{background:var(--navy);color:var(--cream)}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+
+<!-- ===== SVG icon sprite (polished line icons, reused everywhere) ===== -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-key" viewBox="0 0 24 24"><circle cx="7.5" cy="15.5" r="4"/><path d="M10.4 12.6 20 3m-3 0 2.5 2.5M14.5 5.5 17 8"/></symbol>
+  <symbol id="i-wifi" viewBox="0 0 24 24"><path d="M2.5 8.5a15 15 0 0 1 19 0M5.5 12a10 10 0 0 1 13 0M8.5 15.4a5 5 0 0 1 7 0"/><circle cx="12" cy="19" r="1" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-pin" viewBox="0 0 24 24"><path d="M12 21s7-6.2 7-11a7 7 0 0 0-14 0c0 4.8 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M4 5h16v11H9l-4 3v-3H4Z"/><path d="M8.5 10.5h.01M12 10.5h.01M15.5 10.5h.01"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6 3h3l1.5 4-2 1.5a11 11 0 0 0 5 5l1.5-2 4 1.5v3a2 2 0 0 1-2.2 2A16 16 0 0 1 4 5.2 2 2 0 0 1 6 3Z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3.5 7 8.5 6 8.5-6"/></symbol>
+  <symbol id="i-fork" viewBox="0 0 24 24"><path d="M7 3v7m-2-7v4a2 2 0 0 0 4 0V3M7 10v11M17 3c-1.5 0-2.5 2-2.5 5s1 4 2.5 4m0-9v18"/></symbol>
+  <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 3 2.6 5.6L20 9.3l-4 4 1 5.7-5-2.8-5 2.8 1-5.7-4-4 5.4-.7Z"/></symbol>
+  <symbol id="i-bag" viewBox="0 0 24 24"><path d="M6 8h12l-1 12H7Z"/><path d="M9 8a3 3 0 0 1 6 0"/></symbol>
+  <symbol id="i-door" viewBox="0 0 24 24"><path d="M5 21h14M8 21V4h8v17M13 12h.5"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4.5 4.5L19 7"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19Z"/><path d="M12 10v4m0 3h.01"/></symbol>
+  <!-- place-type icons (use these names in CONFIG places → icon) -->
+  <symbol id="i-rest" viewBox="0 0 24 24"><path d="M7 3v7m-2-7v4a2 2 0 0 0 4 0V3M7 10v11"/><path d="M17 3c-1.6 0-2.6 2-2.6 5s1 4 2.6 4m0-9v18"/></symbol>
+  <symbol id="i-cafe" viewBox="0 0 24 24"><path d="M4 8h12v4a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5Z"/><path d="M16 9h2a2 2 0 0 1 0 4h-2"/><path d="M7 2.5v2M10.5 2.5v2M4 20h12"/></symbol>
+  <symbol id="i-dessert" viewBox="0 0 24 24"><path d="M8 10h8l-4 10Z"/><path d="M8.2 10a3.8 3.8 0 0 1 7.6 0"/><path d="M8.6 7.6a3.4 3.4 0 0 1 6.8 0"/></symbol>
+  <symbol id="i-beach" viewBox="0 0 24 24"><path d="M12 3a8 8 0 0 1 8 8H4a8 8 0 0 1 8-8Z"/><path d="M12 11v6"/><path d="M4 21c1.4-1.2 2.6-1.2 4 0s2.6 1.2 4 0 2.6-1.2 4 0 2.6 1.2 4 0"/></symbol>
+  <symbol id="i-view" viewBox="0 0 24 24"><path d="M9.5 6H7l-1.2 3.4M14.5 6H17l1.2 3.4"/><circle cx="6.3" cy="14" r="3.5"/><circle cx="17.7" cy="14" r="3.5"/><path d="M9.8 13.2h4.4"/></symbol>
+  <symbol id="i-boat" viewBox="0 0 24 24"><path d="M4 16.5h16l-2.2 3.5H6.2Z"/><path d="M12 3v11M12 5.2l5.5 6.3H12"/></symbol>
+  <symbol id="i-market" viewBox="0 0 24 24"><path d="M3 4h2l2.2 10.5h10L20 7H6.2"/><circle cx="9" cy="19" r="1.1"/><circle cx="17" cy="19" r="1.1"/></symbol>
+  <symbol id="i-pharmacy" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="3.5"/><path d="M12 8v8M8 12h8"/></symbol>
+  <symbol id="i-atm" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.4"/><path d="M6.5 9v6M17.5 9v6"/></symbol>
+  <symbol id="i-bar" viewBox="0 0 24 24"><path d="M5 4h14l-7 8ZM12 12v6M8.5 21h7"/></symbol>
+  <symbol id="i-park" viewBox="0 0 24 24"><path d="M12 3c3 0 5 2.4 5 5.2 0 2.4-1.6 3.8-3 4.2 1.2.3 2.5 1.4 2.5 3.1 0 1.9-1.6 3.2-4.5 3.2s-4.5-1.3-4.5-3.2c0-1.7 1.3-2.8 2.5-3.1-1.4-.4-3-1.8-3-4.2C7 5.4 9 3 12 3Z"/><path d="M12 19v2"/></symbol>
+</svg>
+
+<div class="topbar">
+  <div class="wrap">
+    <a class="brand" href="#top">
+      <img src="domia-mark.png" alt="Domia Stays" onerror="this.style.display='none'">
+      <span class="txt"><b>Domia</b><span>Stays Group</span></span>
+    </a>
+    <div class="langbtn" role="group" aria-label="Language">
+      <button data-lang="en" aria-pressed="true">EN</button>
+      <button data-lang="es" aria-pressed="false">ES</button>
+    </div>
+  </div>
+</div>
+
+<a id="top"></a>
+<header class="hero">
+  <div class="wrap">
+    <div class="photo" id="heroPhoto"><span class="ph" data-t="photoPh">Property photo — insert real image</span></div>
+    <div class="eyebrow" data-t="welcome">Welcome to</div>
+    <h1 id="propName">Carré Marinada</h1>
+    <div class="tag" id="propLoc">Benidorm · Costa Blanca</div>
+  </div>
+</header>
+
+<div class="wrap">
+  <nav class="quick">
+    <a href="#checkin"><svg class="ic"><use href="#i-key"/></svg><small data-t="qCheckin">Check-in</small></a>
+    <a href="#wifi"><svg class="ic"><use href="#i-wifi"/></svg><small data-t="qWifi">WiFi</small></a>
+    <a href="#explore"><svg class="ic"><use href="#i-pin"/></svg><small data-t="qExplore">Explore</small></a>
+    <a href="#contact"><svg class="ic"><use href="#i-chat"/></svg><small data-t="qHelp">Help</small></a>
+  </nav>
+</div>
+
+<main class="wrap">
+  <section class="blk" id="checkin">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-key"/></svg></div><h2 data-t="s1">Arrival &amp; check-in</h2></div>
+    <div class="card topgold">
+      <div class="row"><span class="k" data-t="address">Address</span><span id="c-addr"></span></div>
+      <div class="row"><span class="k" data-t="checkinTime">Check-in from</span><span class="v big" id="c-cin"></span></div>
+      <div class="row"><span class="k" data-t="checkoutTime">Check-out before</span><span class="v big" id="c-cout"></span></div>
+      <div class="row"><span class="k" data-t="doorCode">Entry code</span><span id="c-code"></span></div>
+    </div>
+    <div class="card"><ol class="steps" id="c-arrival"></ol></div>
+  </section>
+
+  <section class="blk" id="wifi">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-wifi"/></svg></div><h2 data-t="s2">WiFi &amp; essentials</h2></div>
+    <div class="card topgold">
+      <div class="row"><span class="k" data-t="network">Network</span><span id="c-ssid"></span></div>
+      <div class="row"><span class="k" data-t="password">Password</span><span id="c-pass"></span></div>
+    </div>
+    <div class="card" id="c-essentials"></div>
+  </section>
+
+  <section class="blk" id="rules">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-check"/></svg></div><h2 data-t="s3">House rules</h2></div>
+    <div class="card"><ul class="rules" id="c-rules"></ul></div>
+  </section>
+
+  <section class="blk" id="explore">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-pin"/></svg></div><h2 data-t="s4">Explore the area</h2></div>
+    <div id="c-explore"></div>
+  </section>
+
+  <section class="blk" id="checkout">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-door"/></svg></div><h2 data-t="s5">Before you leave</h2></div>
+    <div class="card"><ul class="rules" id="c-checkout"></ul></div>
+  </section>
+
+  <section class="blk" id="contact">
+    <div class="sechead"><div class="n"><svg class="ic"><use href="#i-chat"/></svg></div><h2 data-t="s6">Help &amp; contact</h2></div>
+    <div class="contact">
+      <h3 data-t="hereForYou">We're here for you</h3>
+      <p data-t="contactP">Anything at all during your stay — message us and we'll reply fast.</p>
+      <a class="btn gold" id="c-wa"><svg class="ic"><use href="#i-chat"/></svg><span data-t="waBtn">WhatsApp Domia Stays</span></a>
+      <a class="btn ghost" id="c-mail"><svg class="ic"><use href="#i-mail"/></svg><span id="c-mailtxt"></span></a>
+    </div>
+    <div class="emergency">
+      <div class="row"><span class="k" data-t="emGen"><b>Emergencies (EU)</b></span><span class="v"><b>112</b></span></div>
+      <div class="row"><span class="k" data-t="emHost">On-call host</span><span class="v" id="c-oncall"></span></div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <img class="wordmark" src="domia-logo.png" alt="Domia Stays Group — Feel at home, anywhere"
+         onerror="this.style.display='none';document.getElementById('flogo').hidden=false">
+    <div id="flogo" hidden><div class="txtlogo">DOMIA Stays</div><div class="tag">Feel at home, anywhere</div></div>
+    <small>Domia Stays Group S.L. · Benidorm · Costa Blanca, España<br>
+      <a id="c-web" style="color:var(--gold-light);text-decoration:none;font-weight:600"></a><br>
+      <span data-t="compliance">Registered tourist accommodation · SES.Hospedajes · GDPR compliant</span></small>
+  </div>
+</footer>
+
+<div class="sticky"><div class="wrap">
+  <a class="wa" id="s-wa"><svg class="ic"><use href="#i-chat"/></svg><span data-t="waShort">WhatsApp</span></a>
+  <a class="call" id="s-call"><svg class="ic"><use href="#i-phone"/></svg><span data-t="callShort">Call host</span></a>
+</div></div>
+
+<script>
+/* ==================================================================== */
+/*  EDIT ONLY THIS BLOCK FOR EACH APARTMENT.  Nothing below needs changing. */
+/* ==================================================================== */
+var CONFIG = {
+  propertyName: "Carré Marinada",
+  location:     "Benidorm · Costa Blanca",
+  photo:        "photo.jpg",              // drop a photo.jpg next to this file (leave as-is to show placeholder)
+
+  address:      "Carrer de la Marinada 12, 03501 Benidorm",
+  checkinFrom:  "16:00",
+  checkoutBy:   "11:00",
+  entryCode:    "2580",
+
+  wifiName:     "Domia_Marinada",
+  wifiPassword: "Marinada2026",
+
+  whatsapp:     "34600000000",            // TODO: real Domia WhatsApp Business number (digits only, no + or spaces)
+  phone:        "+34600000000",           // TODO: real host phone
+  email:        "info@domiastays.com",
+  website:      "domiastays.com",
+  onCall:       "+34 600 000 000",        // TODO: real on-call manager number
+
+  // Each text item has en + es. Add/remove freely.
+  arrival: [
+    {en:["Building entrance","Enter the code on the keypad, then push the door."],
+     es:["Entrada del edificio","Marca el código en el teclado y empuja la puerta."]},
+    {en:["Take the lift to floor 4","Apartment 4B is on your right."],
+     es:["Sube en ascensor a la planta 4","El apartamento 4B está a tu derecha."]},
+    {en:["Key box by the door","The same code opens the key box; keys are inside."],
+     es:["Caja de llaves junto a la puerta","El mismo código abre la caja; las llaves están dentro."]},
+    {en:["Make yourself at home","AC remote is on the console table. Message us if anything is unclear."],
+     es:["Ponte cómodo","El mando del aire está en la consola. Escríbenos si tienes cualquier duda."]}
+  ],
+  essentials: [
+    {k:{en:"Air conditioning",es:"Aire acondicionado"}, v:{en:"Grey remote · console table",es:"Mando gris · consola"}},
+    {k:{en:"Smart TV",es:"Smart TV"}, v:{en:"Netflix & YouTube — use your own account",es:"Netflix y YouTube — usa tu cuenta"}},
+    {k:{en:"Parking",es:"Parking"}, v:{en:"Space #14, garage level -1",es:"Plaza #14, garaje nivel -1"}},
+    {k:{en:"Waste",es:"Basura"}, v:{en:"Containers 40 m left of the entrance",es:"Contenedores a 40 m a la izquierda"}}
+  ],
+  rules: [
+    {en:"No parties or events — this is a residential building.", es:"No se permiten fiestas ni eventos — es un edificio residencial."},
+    {en:"Quiet hours 22:00–08:00 (Spanish law).", es:"Horario de silencio 22:00–08:00 (ley española)."},
+    {en:"No smoking indoors; the balcony is fine.", es:"No fumar dentro; el balcón está permitido."},
+    {en:"Maximum guests as per your booking — no extra overnight visitors.", es:"Máximo de huéspedes según tu reserva — sin visitas a pernoctar."},
+    {en:"Please save water and switch off the AC when you go out.", es:"Ahorra agua y apaga el aire al salir."}
+  ],
+  // cat: "eat" | "see" | "need".  icon options: rest cafe dessert bar beach view boat park market pharmacy atm pin
+  places: [
+    {cat:"eat", icon:"rest",    name:"La Cava Aragonesa", mins:"6 min", note:{en:"Tapas institution — order at the bar.", es:"Institución de tapas — pide en la barra."}},
+    {cat:"eat", icon:"cafe",    name:"Cafetería Santa Ana", mins:"4 min", note:{en:"Best breakfast & tostadas near the old town.", es:"El mejor desayuno y tostadas del casco antiguo."}},
+    {cat:"eat", icon:"dessert", name:"Heladería Verdú", mins:"8 min", note:{en:"Local turrón ice cream since 1959.", es:"Helado de turrón local desde 1959."}},
+    {cat:"see", icon:"beach",   name:"Playa de Levante", mins:"7 min", note:{en:"The lively main beach — bars & promenade.", es:"La animada playa principal — bares y paseo."}},
+    {cat:"see", icon:"view",    name:"Balcón del Mediterráneo", mins:"10 min", note:{en:"Clifftop viewpoint between the two beaches.", es:"Mirador entre las dos playas."}},
+    {cat:"see", icon:"boat",    name:"Isla de Benidorm boat", mins:"12 min", note:{en:"Ferry from the port to the island.", es:"Ferry desde el puerto a la isla."}},
+    {cat:"need", icon:"market", name:"Mercadona", mins:"5 min", note:{en:"Supermarket — closed Sundays.", es:"Supermercado — cerrado los domingos."}},
+    {cat:"need", icon:"pharmacy", name:"Farmacia Centro", mins:"3 min", note:{en:"Pharmacy; look for the green cross.", es:"Farmacia; busca la cruz verde."}},
+    {cat:"need", icon:"atm",    name:"CaixaBank ATM", mins:"4 min", note:{en:"Avoid Euronet machines — high fees.", es:"Evita los cajeros Euronet — comisiones altas."}}
+  ],
+  checkout: [
+    {en:"Check-out before the time above.", es:"Salida antes de la hora indicada arriba."},
+    {en:"Leave used towels in the bathroom.", es:"Deja las toallas usadas en el baño."},
+    {en:"Bag any rubbish and take it to the containers outside.", es:"Embolsa la basura y llévala a los contenedores."},
+    {en:"Close windows, switch off the AC and lights.", es:"Cierra ventanas, apaga el aire y las luces."},
+    {en:"Return the keys to the key box and shut the door.", es:"Devuelve las llaves a la caja y cierra la puerta."}
+  ]
+};
+/* ==================================================================== */
+/*  END OF EDITABLE BLOCK                                                */
+/* ==================================================================== */
+
+var STR={
+  en:{photoPh:"Property photo — insert real image",welcome:"Welcome to",qCheckin:"Check-in",qWifi:"WiFi",qExplore:"Explore",qHelp:"Help",
+    s1:"Arrival & check-in",address:"Address",checkinTime:"Check-in from",checkoutTime:"Check-out before",doorCode:"Entry code",tapCopy:"tap to copy",copied:"copied ✓",
+    s2:"WiFi & essentials",network:"Network",password:"Password",s3:"House rules",s4:"Explore the area",
+    catEat:"Eat & drink",catSee:"See & do",catNeed:"Essentials nearby",s5:"Before you leave",
+    s6:"Help & contact",hereForYou:"We're here for you",contactP:"Anything at all during your stay — message us and we'll reply fast.",
+    waBtn:"WhatsApp Domia Stays",emGen:"Emergencies (EU)",emHost:"On-call host",
+    compliance:"Registered tourist accommodation · SES.Hospedajes · GDPR compliant",waShort:"WhatsApp",callShort:"Call host"},
+  es:{photoPh:"Foto del alojamiento — inserta imagen real",welcome:"Bienvenido a",qCheckin:"Entrada",qWifi:"WiFi",qExplore:"Explora",qHelp:"Ayuda",
+    s1:"Llegada y entrada",address:"Dirección",checkinTime:"Entrada desde",checkoutTime:"Salida antes de",doorCode:"Código de acceso",tapCopy:"toca para copiar",copied:"copiado ✓",
+    s2:"WiFi y básicos",network:"Red",password:"Contraseña",s3:"Normas de la casa",s4:"Explora la zona",
+    catEat:"Comer y beber",catSee:"Ver y hacer",catNeed:"Básicos cerca",s5:"Antes de salir",
+    s6:"Ayuda y contacto",hereForYou:"Estamos para ayudarte",contactP:"Cualquier cosa durante tu estancia — escríbenos y te respondemos enseguida.",
+    waBtn:"WhatsApp Domia Stays",emGen:"Emergencias (UE)",emHost:"Anfitrión de guardia",
+    compliance:"Alojamiento turístico registrado · SES.Hospedajes · Cumple RGPD",waShort:"WhatsApp",callShort:"Llamar"}
+};
+
+var LANG='en';
+function esc(s){return String(s).replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c];});}
+function copyChip(text,d){return '<span class="copy" data-copy="'+esc(text)+'">'+esc(text)+' <small>'+d.tapCopy+'</small></span>';}
+function pinIcon(cat){return cat==='eat'?'i-fork':cat==='see'?'i-star':'i-bag';}
+
+function render(lang){
+  LANG=lang; var d=STR[lang]; document.documentElement.lang=lang; var C=CONFIG;
+
+  // static labels
+  document.querySelectorAll('[data-t]').forEach(function(el){var k=el.getAttribute('data-t');if(d[k])el.textContent=d[k];});
+
+  // header
+  document.getElementById('propName').textContent=C.propertyName;
+  document.getElementById('propLoc').textContent=C.location;
+  var hp=document.getElementById('heroPhoto');
+  var img=new Image();
+  img.onload=function(){hp.style.backgroundImage='linear-gradient(0deg,rgba(15,39,64,.45),rgba(15,39,64,0)),url("'+C.photo+'")';hp.querySelector('.ph').style.display='none';};
+  img.src=C.photo;
+
+  // check-in card
+  document.getElementById('c-addr').innerHTML=copyChip(C.address,d);
+  document.getElementById('c-cin').textContent=C.checkinFrom;
+  document.getElementById('c-cout').textContent=C.checkoutBy;
+  document.getElementById('c-code').innerHTML=copyChip(C.entryCode,d);
+  document.getElementById('c-arrival').innerHTML=C.arrival.map(function(s){var t=s[lang];return '<li><b>'+esc(t[0])+'</b>'+esc(t[1])+'</li>';}).join('');
+
+  // wifi
+  document.getElementById('c-ssid').innerHTML=copyChip(C.wifiName,d);
+  document.getElementById('c-pass').innerHTML=copyChip(C.wifiPassword,d);
+  document.getElementById('c-essentials').innerHTML=C.essentials.map(function(e){
+    return '<div class="row"><span class="k">'+esc(e.k[lang])+'</span><span class="v">'+esc(e.v[lang])+'</span></div>';}).join('');
+
+  // rules / checkout
+  document.getElementById('c-rules').innerHTML=C.rules.map(function(r){return '<li>'+esc(r[lang])+'</li>';}).join('');
+  document.getElementById('c-checkout').innerHTML=C.checkout.map(function(r){return '<li>'+esc(r[lang])+'</li>';}).join('');
+
+  // explore
+  var cats=[['eat',d.catEat],['see',d.catSee],['need',d.catNeed]];
+  document.getElementById('c-explore').innerHTML=cats.map(function(ct){
+    var items=C.places.filter(function(p){return p.cat===ct[0];});
+    if(!items.length)return '';
+    return '<div class="card"><span class="pill"><svg class="ic"><use href="#'+pinIcon(ct[0])+'"/></svg>'+ct[1]+'</span>'+
+      items.map(function(p){return '<div class="place"><span class="emo"><svg><use href="#i-'+(p.icon||'pin')+'"/></svg></span><div class="body"><b>'+esc(p.name)+'</b><span>'+esc(p.note[lang])+'</span></div><span class="mins">'+esc(p.mins)+'</span></div>';}).join('')+'</div>';
+  }).join('');
+
+  // contact links
+  var wa='https://wa.me/'+C.whatsapp;
+  document.getElementById('c-wa').href=wa; document.getElementById('s-wa').href=wa;
+  document.getElementById('s-call').href='tel:'+C.phone;
+  document.getElementById('c-mail').href='mailto:'+C.email;
+  document.getElementById('c-mailtxt').textContent=C.email;
+  document.getElementById('c-oncall').textContent=C.onCall;
+  if(C.website){var w=document.getElementById('c-web');w.textContent=C.website;w.href='https://'+C.website;}
+
+  // copy handlers
+  document.querySelectorAll('.copy').forEach(function(el){
+    el.onclick=function(){var t=el.getAttribute('data-copy');navigator.clipboard&&navigator.clipboard.writeText(t);
+      var sm=el.querySelector('small');el.classList.add('done');if(sm)sm.textContent=d.copied;
+      setTimeout(function(){el.classList.remove('done');if(sm)sm.textContent=d.tapCopy;},1400);};
+  });
+  document.querySelectorAll('.langbtn button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.lang===lang?'true':'false');});
+  document.title=(lang==='es'?'Guía del huésped':'Guest Guide')+' — '+C.propertyName;
+}
+document.querySelectorAll('.langbtn button').forEach(function(b){b.addEventListener('click',function(){render(b.dataset.lang);});});
+render('en');
+
+/* ==== make it installable / work offline ==== */
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+</script>
+</body>
+</html>
