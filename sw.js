@@ -1,9 +1,9 @@
 /* Domia Guest Guide service worker.
    HTML = network-first (your edits show immediately when online).
    Assets = cache-first (fast, and the guide still works offline). */
-const CACHE = 'domia-guide-v2';
+const CACHE = 'domia-guide-v3';
 const ASSETS = ['./', './index.html', './manifest.webmanifest',
-  './domia-mark.png', './domia-icon.png', './domia-logo.png', './photo.jpg'];
+  './domia-mark.png', './domia-wordmark.png', './domia-icon.png', './photo.jpg'];
 
 self.addEventListener('install', e => {
   e.waitUntil(caches.open(CACHE).then(c => c.addAll(ASSETS).catch(()=>{})));

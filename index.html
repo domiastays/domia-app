@@ -134,11 +134,12 @@ ol.steps li:last-child{padding-bottom:0}
 
 .note{font-size:12.5px;color:var(--muted);text-align:center;margin:6px 4px 0}
 
-/* footer (navy) — transparent monogram blends seamlessly, no visible box */
-footer{background:var(--navy);text-align:center;padding:32px 0 30px;margin-top:24px}
-footer img.mark{height:76px;width:auto;margin:0 auto 12px;display:block}
-footer .tag{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:18px}
-footer small{display:block;color:#8ea0b4;font-size:11.5px;margin-top:14px;line-height:1.7}
+/* footer (navy) — full gold wordmark on transparent, blends seamlessly */
+footer{background:var(--navy);text-align:center;padding:34px 0 30px;margin-top:24px}
+footer img.wordmark{width:74%;max-width:300px;height:auto;margin:0 auto;display:block}
+footer .txtlogo{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:700;color:var(--gold-light)}
+footer .tag{color:var(--gold-light);font-family:'Cormorant Garamond',serif;font-style:italic;font-size:17px;margin-top:2px}
+footer small{display:block;color:#8ea0b4;font-size:11.5px;margin-top:16px;line-height:1.7}
 
 /* sticky bar */
 .sticky{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
@@ -267,8 +268,9 @@ footer small{display:block;color:#8ea0b4;font-size:11.5px;margin-top:14px;line-h
 
 <footer>
   <div class="wrap">
-    <img class="mark" src="domia-mark.png" alt="Domia Stays" onerror="this.style.display='none'">
-    <div class="tag">Feel at home, anywhere</div>
+    <img class="wordmark" src="domia-wordmark.png" alt="Domia Stays Group — Feel at home, anywhere"
+         onerror="this.style.display='none';document.getElementById('flogo').hidden=false">
+    <div id="flogo" hidden><div class="txtlogo">DOMIA Stays</div><div class="tag">Feel at home, anywhere</div></div>
     <small>Domia Stays Group S.L. · Benidorm · Costa Blanca, España<br>
       <a id="c-web" style="color:var(--gold-light);text-decoration:none;font-weight:600"></a><br>
       <span data-t="compliance">Registered tourist accommodation · SES.Hospedajes · GDPR compliant</span></small>
